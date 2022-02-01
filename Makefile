@@ -1,3 +1,5 @@
+install:
+	npm ci
 link:
 	sudo npm link
 publish:
