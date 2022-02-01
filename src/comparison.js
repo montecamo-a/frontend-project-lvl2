@@ -1,6 +1,8 @@
 import _ from 'lodash';
+import getValue from './getValue.js';
 
-const getDiff = (obj1, obj2) => {
+const comparison = (file1, file2) => {
+  const [obj1, obj2] = [getValue(file1), getValue(file2)];
   const keysOfObj1 = Object.keys(obj1);
   const keysOfObj2 = Object.keys(obj2);
   const allKeys = _.uniq([...keysOfObj1, ...keysOfObj2]).sort();
@@ -25,4 +27,4 @@ const getDiff = (obj1, obj2) => {
   return `{\n ${diffAsString.trim()}\n}`;
 }
 
-export default getDiff;
+export default comparison;

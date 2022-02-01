@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import getDiff from '../src/comparison.js';
-import getValue from '../src/getValue.js';
+import comparison from '../src/comparison.js';
+
 const program  = new Command();
 program
   .version('1.0.0', '-V, --version', 'output the version number')
@@ -10,7 +10,7 @@ program
   .helpOption('-h, --help', 'output usage information')
   .arguments('<file1> <file2>')
   .action((file1, file2) => {
-    const [valueFromFile1, valueFromFile2] = [getValue(file1), getValue(file2)];
-    return console.log(getDiff(valueFromFile1, valueFromFile2));
+    console.log(comparison(file1, file2));
+    return comparison(file1, file2);
   });
 program.parse();
