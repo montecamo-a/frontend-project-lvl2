@@ -7,10 +7,10 @@ const comparison = (file1, file2) => {
   const keysOfObj2 = Object.keys(obj2);
   const allKeys = _.uniq([...keysOfObj1, ...keysOfObj2]).sort();
 
-  const diffAsArray = allKeys.reduce((acc,key) => {
+  const diffAsArray = allKeys.reduce((acc, key) => {
     if (_.has(obj2, key) && _.has(obj1, key)) {
-      if (obj2[key] ===  obj1[key]) acc.push([`  ${key}`, obj1[key]]);
-      if (obj2[key] !==  obj1[key]) {
+      if (obj2[key] === obj1[key]) acc.push([`  ${key}`, obj1[key]]);
+      if (obj2[key] !== obj1[key]) {
         acc.push([`- ${key}`, obj1[key]]);
         acc.push([`+ ${key}`, obj2[key]]);
       }
@@ -21,10 +21,8 @@ const comparison = (file1, file2) => {
     return acc;
   }, []);
 
-  const diffAsString = diffAsArray.reduce((acc, [key, value]) => {
-    return acc + `${key}: ${value}\n `
-  }, '')
+  const diffAsString = diffAsArray.reduce((acc, [key, value]) => `${acc}${key}: ${value}\n `, '');
   return `{\n ${diffAsString.trim()}\n}`;
-}
+};
 
 export default comparison;
