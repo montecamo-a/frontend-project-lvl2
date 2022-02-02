@@ -30,4 +30,5 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}  
       - run: make install
-      - run: make test 
+      - run: make test
+      - run: make coverage-tests 
