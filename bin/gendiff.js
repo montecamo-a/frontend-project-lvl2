@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import comparisonFlatFiles from '../src/comparison.js';
+import gendiff from '../src/gendiff.js';
 
 const program = new Command();
 program
@@ -10,7 +10,7 @@ program
   .helpOption('-h, --help', 'output usage information')
   .arguments('<file1> <file2>')
   .action((file1, file2) => {
-    console.log(genDiffFlatFiles(file1, file2));
-    return genDiffFlatFiles(file1, file2);
+    console.log(gendiff(file1, file2));
+    return gendiff(file1, file2);
   });
 program.parse();

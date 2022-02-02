@@ -1,7 +1,7 @@
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import genDiffFlatFiles from '../src/gendiff.js';
+import gendiff from '../src/gendiff.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -24,13 +24,13 @@ beforeEach(() => {
 
 describe('usual Work', () => {
   test('with relative path', () => {
-    expect(genDiffFlatFiles('file1.json', 'file2.json')).toEqual(correctDifBetFile1File2);
-    expect(genDiffFlatFiles('file1.json', 'file1.json')).toEqual(correctDifBetFile1File1);
-    expect(genDiffFlatFiles('file3.json', 'file1.json')).toEqual(correctDifBetFile3File1);
+    expect(gendiff('file1.json', 'file2.json')).toEqual(correctDifBetFile1File2);
+    expect(gendiff('file1.json', 'file1.json')).toEqual(correctDifBetFile1File1);
+    expect(gendiff('file3.json', 'file1.json')).toEqual(correctDifBetFile3File1);
   });
   test('with absolute path', () => {
-    expect(genDiffFlatFiles(pathToFile1, pathToFile2)).toEqual(correctDifBetFile1File2);
-    expect(genDiffFlatFiles(pathToFile1, pathToFile1)).toEqual(correctDifBetFile1File1);
-    expect(genDiffFlatFiles(pathToFile3, pathToFile1)).toEqual(correctDifBetFile3File1);
+    expect(gendiff(pathToFile1, pathToFile2)).toEqual(correctDifBetFile1File2);
+    expect(gendiff(pathToFile1, pathToFile1)).toEqual(correctDifBetFile1File1);
+    expect(gendiff(pathToFile3, pathToFile1)).toEqual(correctDifBetFile3File1);
   });
 });
