@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import getValue from './getValue.js';
 
-const comparisonFlatFiles = (file1, file2) => {
+const genDiffFlatFiles = (file1, file2) => {
   const [obj1, obj2] = [getValue(file1), getValue(file2)];
   const keysOfObj1 = Object.keys(obj1);
   const keysOfObj2 = Object.keys(obj2);
@@ -25,4 +25,4 @@ const comparisonFlatFiles = (file1, file2) => {
   return `{\n  ${_.trimEnd(diffAsString)}\n}`;
 };
 
-export default comparisonFlatFiles;
+export default genDiffFlatFiles;

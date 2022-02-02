@@ -10,7 +10,7 @@ program
   .helpOption('-h, --help', 'output usage information')
   .arguments('<file1> <file2>')
   .action((file1, file2) => {
-    console.log(comparisonFlatFiles(file1, file2));
-    return comparisonFlatFiles(file1, file2);
+    console.log(genDiffFlatFiles(file1, file2));
+    return genDiffFlatFiles(file1, file2);
   });
 program.parse();
