@@ -1,0 +1,6 @@
+{
+  "host": "hexlet.io",
+  "timeout": 70,
+  "proxy": "124.234.53.22",
+  "follow": true
+}
