@@ -36,5 +36,5 @@ jobs:
         env:
           CC_TEST_REPORTER_ID: ${{secrets.CODECLIMATE_SECRET}}
         with:
-          coverageCommand:  make coverage-test
+          coverageCommand:  make coverage-tests
           debug: true
