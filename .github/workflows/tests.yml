@@ -30,9 +30,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}  
       - run: make install    
+      - run: make test
       - name: test & publish code coverage
         uses: paambaati/codeclimate-action@v2.5.7
         env:
-          CC_TEST_REPORTER_ID: CODECLIMATE-SECRET
+          CC_TEST_REPORTER_ID: ${{secrets.CODECLIMATE_SECRET}}
         with:
-          coverageCommand:  make test
+          coverageCommand:  make coverage-test
+          debug: true
