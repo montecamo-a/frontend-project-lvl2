@@ -20,7 +20,7 @@ beforeEach(() => {
   correctDifBetFile1File2 = '{\n  - follow: false\n    host: hexlet.io\n  - proxy: 123.234.53.22\n  - timeout: 50\n  + timeout: 20\n  + verbose: true\n}';
   correctDifBetFile1File1 = '{\n    follow: false\n    host: hexlet.io\n    proxy: 123.234.53.22\n    timeout: 50\n}';
   correctDifBetFile3File1 = '{\n  + follow: false\n  + host: hexlet.io\n  + proxy: 123.234.53.22\n  + timeout: 50\n}';
- 
+
   pathToF1j = path.resolve(__dirname, '..', '__fixtures__', 'file1.json');
   pathToF2j = path.resolve(__dirname, '..', '__fixtures__', 'file2.json');
   pathToF3j = path.resolve(__dirname, '..', '__fixtures__', 'file3.json');

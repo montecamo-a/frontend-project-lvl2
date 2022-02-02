@@ -11,7 +11,7 @@ const getValue = (fileName) => {
   const format = path.extname(fileName);
   const roadToFile = path.resolve(__dirname, '..', '__fixtures__', fileName);
   const valueOfFile = readFileSync(roadToFile, 'utf8');
-  const result =  format === 'JSON' ? JSON.parse(valueOfFile) : yaml.load(valueOfFile);
+  const result = format === 'JSON' ? JSON.parse(valueOfFile) : yaml.load(valueOfFile);
   return result;
 };
 
