@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import comparison from '../src/comparison.js';
+import comparisonFlatFiles from '../src/comparison.js';
 
 const program = new Command();
 program
@@ -10,7 +10,7 @@ program
   .helpOption('-h, --help', 'output usage information')
   .arguments('<file1> <file2>')
   .action((file1, file2) => {
-    console.log(comparison(file1, file2));
-    return comparison(file1, file2);
+    console.log(comparisonFlatFiles(file1, file2));
+    return comparisonFlatFiles(file1, file2);
   });
 program.parse();

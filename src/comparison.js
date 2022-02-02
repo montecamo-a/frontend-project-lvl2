@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import getValue from './getValue.js';
 
-const comparison = (file1, file2) => {
+const comparisonFlatFiles = (file1, file2) => {
   const [obj1, obj2] = [getValue(file1), getValue(file2)];
   const keysOfObj1 = Object.keys(obj1);
   const keysOfObj2 = Object.keys(obj2);
@@ -21,8 +21,8 @@ const comparison = (file1, file2) => {
     return acc;
   }, []);
 
-  const diffAsString = diffAsArray.reduce((acc, [key, value]) => `${acc}${key}: ${value}\n `, '');
-  return `{\n ${diffAsString.trim()}\n}`;
+  const diffAsString = diffAsArray.reduce((acc, [key, value]) => `${acc}${key}: ${value}\n  `, '');
+  return `{\n  ${_.trimEnd(diffAsString)}\n}`;
 };
 
-export default comparison;
+export default comparisonFlatFiles;
