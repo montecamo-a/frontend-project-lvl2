@@ -1,8 +1,8 @@
 import _ from 'lodash';
-import getValue from './getValue.js';
+import parser from './parser.js';
 
 const gendiff = (file1, file2) => {
-  const [obj1, obj2] = [getValue(file1), getValue(file2)];
+  const [obj1, obj2] = [parser(file1), parser(file2)];
   const keysOfObj1 = Object.keys(obj1);
   const keysOfObj2 = Object.keys(obj2);
   const allKeys = _.uniq([...keysOfObj1, ...keysOfObj2]).sort();
