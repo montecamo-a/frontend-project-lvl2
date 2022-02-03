@@ -9,7 +9,7 @@ const __dirname = dirname(__filename);
 
 const getValue = (fileName) => {
   const format = path.extname(fileName);
-  const roadToFile = path.resolve(__dirname, '..', '__fixtures__', fileName);
+  const roadToFile = path.resolve(__dirname, '..', '__fixtures__', 'flatvolumes', fileName);
   const valueOfFile = readFileSync(roadToFile, 'utf8');
   const result = format === 'JSON' ? JSON.parse(valueOfFile) : yaml.load(valueOfFile);
   return result;

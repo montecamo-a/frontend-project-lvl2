@@ -21,13 +21,13 @@ beforeEach(() => {
   correctDifBetFile1File1 = '{\n    follow: false\n    host: hexlet.io\n    proxy: 123.234.53.22\n    timeout: 50\n}';
   correctDifBetFile3File1 = '{\n  + follow: false\n  + host: hexlet.io\n  + proxy: 123.234.53.22\n  + timeout: 50\n}';
 
-  pathToF1j = path.resolve(__dirname, '..', '__fixtures__', 'file1.json');
-  pathToF2j = path.resolve(__dirname, '..', '__fixtures__', 'file2.json');
-  pathToF3j = path.resolve(__dirname, '..', '__fixtures__', 'file3.json');
+  pathToF1j = path.resolve(__dirname, '..', '__fixtures__/flatvolumes', 'file1.json');
+  pathToF2j = path.resolve(__dirname, '..', '__fixtures__/flatvolumes', 'file2.json');
+  pathToF3j = path.resolve(__dirname, '..', '__fixtures__/flatvolumes', 'file3.json');
 
-  pathToF1y = path.resolve(__dirname, '..', '__fixtures__', 'file1.yaml');
-  pathToF2y = path.resolve(__dirname, '..', '__fixtures__', 'file2.yml');
-  pathToF3y = path.resolve(__dirname, '..', '__fixtures__', 'file3.yaml');
+  pathToF1y = path.resolve(__dirname, '..', '__fixtures__/flatvolumes', 'file1.yaml');
+  pathToF2y = path.resolve(__dirname, '..', '__fixtures__/flatvolumes', 'file2.yml');
+  pathToF3y = path.resolve(__dirname, '..', '__fixtures__/flatvolumes', 'file3.yaml');
 });
 
 describe('usual Work with .json', () => {
