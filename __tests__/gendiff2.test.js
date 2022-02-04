@@ -1,7 +1,9 @@
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import gendiff from '../src/gendiff.js';
+import gendiff from '../src/gendiff2.js';
+import stringify from '../src/stylish.js';
+import getValue from '../src/parser.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -57,7 +59,8 @@ beforeEach(() => {
                           + '         fee: 100500\n'
                           + '     }\n'
                           + '}';
-  correctDifBetFile1File2 = '{\n'
+
+  correctDifBetFile1File1 = '{\n'
                           + '    common:\n'
                           + '        follow: false\n'
                           + '        setting1: Value 1\n'
@@ -85,35 +88,35 @@ beforeEach(() => {
                           + '     }\n'
                           + '}';
 
-  pathToF1j = path.resolve(__dirname, '..', '__fixtures__/recursionvolumes', 'file1.json');
-  pathToF2j = path.resolve(__dirname, '..', '__fixtures__/recursionvolumes', 'file2.json');
+  pathToF1j = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file1.json');
+  pathToF2j = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file2.json');
 
-  pathToF1y = path.resolve(__dirname, '..', '__fixtures__/recursionvolumes', 'file1.yaml');
-  pathToF2y = path.resolve(__dirname, '..', '__fixtures__/recursionvolumes', 'file2.yml');
+  pathToF1y = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file1.yaml');
+  pathToF2y = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file2.yaml');
 });
 
 describe('usual Work with .json', () => {
   test('with relative path', () => {
-    expect(gendiff('file1.json', 'file2.json')).toEqual(correctDifBetFile1File2);
-    expect(gendiff('file1.json', 'file1.json')).toEqual(correctDifBetFile1File1);
+    expect(stringify(gendiff(getValue('file1.json'), getValue('file2.json')))).toEqual(correctDifBetFile1File2);
+    expect(stringify(gendiff('file1.json', 'file1.json'))).toEqual(correctDifBetFile1File1);
     // expect(gendiff('file3.json', 'file1.json')).toEqual(correctDifBetFile3File1);
   });
   test('with absolute path', () => {
-    expect(gendiff(pathToF1j, pathToF2j)).toEqual(correctDifBetFile1File2);
-    expect(gendiff(pathToF1j, pathToF1j)).toEqual(correctDifBetFile1File1);
+    expect(stringify(gendiff(pathToF1j, pathToF2j))).toEqual(correctDifBetFile1File2);
+    expect(stringify(gendiff(pathToF1j, pathToF1j))).toEqual(correctDifBetFile1File1);
     // expect(gendiff(pathToF3j, pathToF1j)).toEqual(correctDifBetFile3File1);
   });
 });
 
 describe('usual Work with .yaml || .yml', () => {
   test('with relative path', () => {
-    expect(gendiff('file1.yaml', 'file2.yml')).toEqual(correctDifBetFile1File2);
-    expect(gendiff('file1.yaml', 'file1.yaml')).toEqual(correctDifBetFile1File1);
+    expect(stringify(gendiff(getValue('file1.yaml'), getValue('file2.yaml')))).toEqual(correctDifBetFile1File2);
+    expect(stringify(gendiff(getValue('file1.yaml'), getValue('file1.yaml')))).toEqual(correctDifBetFile1File1);
     // expect(gendiff('file3.yaml', 'file1.yaml')).toEqual(correctDifBetFile3File1);
   });
   test('with absolute path', () => {
-    expect(gendiff(pathToF1y, pathToF2y)).toEqual(correctDifBetFile1File2);
-    expect(gendiff(pathToF1y, pathToF1y)).toEqual(correctDifBetFile1File1);
+    expect(stringify(gendiff(pathToF1y, pathToF2y))).toEqual(correctDifBetFile1File2);
+    expect(stringify(gendiff(pathToF1y, pathToF1y))).toEqual(correctDifBetFile1File1);
     // expect(gendiff(pathToF3y, pathToF1y)).toEqual(correctDifBetFile3File1);
   });
 });

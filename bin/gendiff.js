@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import { gendiff } from '../src/gendiff2.js';
+import gendiff from '../src/gendiff2.js';
 import getValue from '../src/parser.js';
+import stringify from '../src/stylish.js';
 
 const program = new Command();
 program
@@ -13,7 +14,7 @@ program
   .action((file1, file2) => {
     const valueFile1 = getValue(file1);
     const valueFile2 = getValue(file2);
-    console.log(gendiff(valueFile1, valueFile1));
-    return gendiff(valueFile1, valueFile2);
+    console.log(stringify(gendiff(valueFile1, valueFile1)));
+    return stringify(gendiff(valueFile1, valueFile2));
   });
 program.parse();
