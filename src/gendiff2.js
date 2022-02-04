@@ -12,12 +12,12 @@ const gendiff = (node1, node2) => {
   const resultTree = allKeys.reduce((acc, key) => {
     if (_.has(node1, key) && _.has(node2, key)) {
       if (_.isObjectLike(node1[key]) && _.isObjectLike(node2[key])) {
-        acc[`  ${key}`] = gendiff(node1[key], node2[key]);
+        acc[`${key}`] = gendiff(node1[key], node2[key]);
         return acc;
       }
       const areChanged = gendiff(node1[key], node2[key]);
       if (!areChanged) {
-        acc[`  ${key}`] = node1[key];
+        acc[`${key}`] = node1[key];
         return acc;
       }
     }
