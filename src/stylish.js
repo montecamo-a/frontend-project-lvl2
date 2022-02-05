@@ -1,23 +1,40 @@
 import _ from 'lodash';
+import {
+  getArrayOfKeysStatusesValuesOfFirstLevelNesting,
+  getDiffAsObj,
+} from './diff.js';
 
-const stylish = (value, replacer = ' ', countReplace = 4) => {
-  const goToDepth = (value1, depth = 1) => {
-    if (!_.isObject(value1)) return `${value1}`;
+const stylish = (diff, replacer = ' ', repeatingSeparator = 4) => {
+  const formatter = (meainig, depth = 1) => {
+    if (!_.isObject(meainig)) return `${meainig}`;
 
-    const currentReplacerLength = countReplace * depth;
-    const getStrings = Object.entries(value1).map(([key, value2]) => {
-      let trimLengthReplacer = 2;
-      if (!key.startsWith('+') && !key.startsWith('-')) trimLengthReplacer = 0;
-      const result = `\n${replacer.repeat(currentReplacerLength - trimLengthReplacer)}${key}: ${goToDepth(value2, depth + 1)}`;
-      return result;
-    });
-    const getresult = getStrings.reduce((acc, str, index, array) => {
-      if (index === (array.length - 1)) return `${acc}${str}\n${replacer.repeat(currentReplacerLength - countReplace)}}`;
+    const newRepeatingSeparator = repeatingSeparator * depth;
+
+    const arrayOfStrings = getArrayOfKeysStatusesValuesOfFirstLevelNesting(meainig)
+      .flatMap(([key, status, value]) => {
+        let additionalSeparator;
+        const item = [];
+        if (status === 'updated') {
+          item.push(`\n${replacer.repeat(newRepeatingSeparator - 2)}- ${key}: ${formatter(value, depth + 1)}`);
+          item.push(`\n${replacer.repeat(newRepeatingSeparator - 2)}+ ${key}: ${formatter(value, depth + 1)}`);
+          return item;
+        }
+        if (status === 'added') additionalSeparator = '+ ';
+        if (status === 'removed') additionalSeparator = '- ';
+        if (status === 'unchanged') additionalSeparator = '  ';
+        item.push(`\n${replacer.repeat(newRepeatingSeparator - 2)}${additionalSeparator}${key}: ${formatter(value, depth + 1)}`);
+        return item;
+      });
+
+    const getresult = arrayOfStrings.reduce((acc, str, index, array) => {
+      if (index === (array.length - 1)) return `${acc}${str}\n${replacer.repeat(newRepeatingSeparator - repeatingSeparator)}}`;
       return acc + str;
     }, '{');
 
     return getresult;
   };
-  return goToDepth(value);
+
+  const diffAsObj = getDiffAsObj(diff);
+  return formatter(diffAsObj);
 };
 export default stylish;
