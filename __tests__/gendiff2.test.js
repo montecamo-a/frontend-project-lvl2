@@ -1,7 +1,7 @@
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import { gendiff } from '../src/gendiff2.js';
+import gendiff from '../src/gendiff2.js';
 
 let __filename;
 let __dirname;
