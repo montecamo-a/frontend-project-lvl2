@@ -36,7 +36,6 @@ const getStatusOfKey = (key) => {
   const status = [];
   if (key.startsWith('|added|')) status.push('added');
   if (key.startsWith('|removed|')) status.push('removed');
-  if (status.length === 2) return 'updated';
   if (status.length === 0) return 'unchanged';
   return status[0];
 };

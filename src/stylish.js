@@ -11,18 +11,12 @@ const stylish = (diff, replacer = ' ', repeatingSeparator = 4) => {
     const newRepeatingSeparator = repeatingSeparator * depth;
 
     const arrayOfStrings = getArrayOfKeysStatusesValuesOfFirstLevelNesting(meainig)
-      .flatMap(([key, status, value]) => {
+      .map(([key, status, value]) => {
         let additionalSeparator;
-        const item = [];
-        if (status === 'updated') {
-          item.push(`\n${replacer.repeat(newRepeatingSeparator - 2)}- ${key}: ${formatter(value, depth + 1)}`);
-          item.push(`\n${replacer.repeat(newRepeatingSeparator - 2)}+ ${key}: ${formatter(value, depth + 1)}`);
-          return item;
-        }
         if (status === 'added') additionalSeparator = '+ ';
         if (status === 'removed') additionalSeparator = '- ';
         if (status === 'unchanged') additionalSeparator = '  ';
-        item.push(`\n${replacer.repeat(newRepeatingSeparator - 2)}${additionalSeparator}${key}: ${formatter(value, depth + 1)}`);
+        const item = `\n${replacer.repeat(newRepeatingSeparator - 2)}${additionalSeparator}${key}: ${formatter(value, depth + 1)}`;
         return item;
       });
 
