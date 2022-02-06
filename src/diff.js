@@ -22,6 +22,11 @@ const diff = (nodeOfFirstFile, nodeOfSecondFile) => {
         acc[`${key}`] = nodeOfFirstFile[key];
         return acc;
       }
+      if (!areUnchanged) {
+        acc[`|updated/removed|${key}`] = nodeOfFirstFile[key];
+        acc[`|updated/added|${key}`] = nodeOfSecondFile[key];
+        return acc;
+      }
     }
 
     if (_.has(nodeOfFirstFile, key)) acc[`|removed|${key}`] = nodeOfFirstFile[key];
@@ -36,6 +41,8 @@ const getStatusOfKey = (key) => {
   const status = [];
   if (key.startsWith('|added|')) status.push('added');
   if (key.startsWith('|removed|')) status.push('removed');
+  if (key.startsWith('|updated/removed|')) status.push('updated/removed');
+  if (key.startsWith('|updated/added|')) status.push('updated/added');
   if (status.length === 0) return 'unchanged';
   return status[0];
 };
@@ -55,8 +62,20 @@ const getArrayOfKeysStatusesValuesOfFirstLevelNesting = (diffAsObj) => {
   return result;
 };
 
+const getArrayOfObjWithPathStatusValueOfAllChangedKeys = (meaning, status = 'unchanged', path = '') => {
+  if (status === 'added' || status === 'removed') return { path, status, meaning };
+  if (status === 'updated/added' || status === 'updated/removed') return { path, status, meaning };
+  const arrayWithPathsStatusesValues = getArrayOfKeysStatusesValuesOfFirstLevelNesting(meaning)
+    .flatMap(([key, status2, value]) => {
+      const newPath = `${path}${key}.`;
+      if (!_.isObject(value) && status2 === 'unchanged') return [];
+      return getArrayOfObjWithPathStatusValueOfAllChangedKeys(value, status2, newPath);
+    });
+  return arrayWithPathsStatusesValues;
+};
+
 export {
   getStatusOfKey, diff,
   getArrayOfKeysStatusesValuesOfFirstLevelNesting,
-  getDiffAsObj,
+  getDiffAsObj, getArrayOfObjWithPathStatusValueOfAllChangedKeys,
 };
