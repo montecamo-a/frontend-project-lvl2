@@ -14,3 +14,5 @@
 <a href="https://asciinema.org/a/729tlYSjig6RHm8aIqy10oycn" target="_blank"><img src="https://asciinema.org/a/729tlYSjig6RHm8aIqy10oycn.svg" /></a>
 ### Seventh step asciinema:
 <a href="https://asciinema.org/a/jRMRddhhS5lig7acLXockO4b5" target="_blank"><img src="https://asciinema.org/a/jRMRddhhS5lig7acLXockO4b5.svg" /></a>
+### Eight step asciinema:
+<a href="https://asciinema.org/a/iBZRDg5Blb5K45X5s9hZrHfdB" target="_blank"><img src="https://asciinema.org/a/iBZRDg5Blb5K45X5s9hZrHfdB.svg" /></a>
