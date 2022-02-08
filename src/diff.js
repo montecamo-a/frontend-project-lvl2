@@ -49,41 +49,15 @@ const getKeyOfNode = (node) => node.key;
 
 const getChildrensOfNodeAsArray = (node) => node.childrens;
 
-const getChildOfChildrens = (array, statusOfUpdatedKey = null) => {
-  let value = 'uncorrectStatus';
-  //console.log(array[0]);
-  if (statusOfUpdatedKey === null) [value] = array;
-  if (statusOfUpdatedKey === 'added') [, value] = array;
-  if (statusOfUpdatedKey === 'removed') [value] = array;
-  return value;
-};
-/*
-const getArrayOfKeysStatusesValuesOfFirstLevelNesting = (diffAsObj) => {
-  const result = Object.entries(diffAsObj).map(([key, value]) => {
-    const status = getStatusOfKey(key);
-    let newKey = key;
-    if (status !== 'unchanged') newKey = _.trimStart(key, `|${status}|`);
-    return [newKey, status, value];
-  });
-  return result;
-};
+const getFirstChildOfChildrens = (array) => array[0];
 
-const getArrayOfObjWithPathStatusValueOfAllChangedKeys =
- (node, status = 'unchanged', path = '') => {
-  if (status === 'added' || status === 'removed')
-  return { path, status, getChildOfChildrens(node) };
-  if (status === 'updated') return { path, status, meaning };
-  const arrayWithPathsStatusesValues = getChildrensOfNodeAsArrayOfobj(node)
-    .flatMap(({ name, status, childrens }) => {
-      const newPath = `${path}${name}.`;
-      if (!_.isObject(value) && status2 === 'unchanged') return [];
-      return getArrayOfObjWithPathStatusValueOfAllChangedKeys(value, status2, newPath);
-    });
-  return arrayWithPathsStatusesValues;
-};
-*/
+const getRemovedChildAsArrayOfUpdatedNode = (array) => [array[0]];
+
+const getAddedChildAsArrayOfUpdatedNode = (array) => [array[1]];
+
 export {
   diff, getStatusOfNode,
   getKeyOfNode, getChildrensOfNodeAsArray,
-  getChildOfChildrens,
+  getFirstChildOfChildrens, getRemovedChildAsArrayOfUpdatedNode,
+  getAddedChildAsArrayOfUpdatedNode,
 };
