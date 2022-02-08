@@ -177,21 +177,16 @@ describe('When formateName = plain', () => {
 describe('When formateName = json', () => {
   beforeEach(() => {
     firstCorrectDifWhenUseJest = {
-      common: {
+        name:'common',
         status: 'unchanged',
-        value: {
-          follow: { status: 'added', value: false },
-          setting1: { status: 'unchanged', value: 'Value' },
-          setting2: { status: 'removed', value: 200 },
-          setting3: { status: 'updated', value: { removed: true, added: null } },
-          setting4: { status: 'added', value: 'blah blah' },
-          setting5: { status: 'added', value: { key5: 'value5' } },
-          setting6: {
-            status: 'unchanged',
-            value: {
-              doge: {
-                status: 'unchanged',
-                value: {
+        childrens: [
+          { name: follow, status: 'added', childrens: [false] },
+          { name: setting1, status: 'unchanged', childrens: ['Value'] },
+          { name: setting, status: 'removed', childrens: [200] },
+          { name: setting3, status: 'updated', childrens: [true, null] },
+          { name: setting4, status: 'added', childrens: ['blah blah'] },
+          { name: setting5, status: 'added', childrens: [ {name: key5, status: 'uncganged', childrens: ['value5'] }] },
+          { name:setting6, status: 'unchanged', childrens: [ {name: 'doge', status: 'unchanged', childrens: [
                   wow: { status: 'updated', value: { removed: '', added: 'so much' } },
                 },
               },
@@ -213,34 +208,34 @@ describe('When formateName = json', () => {
       group3: { status: 'added', value: { deep: { id: { number: 45 } }, fee: 100500 } },
     };
 
-    secondCorrectDifWhenUseJest = '';
+    // secondCorrectDifWhenUseJest = '';
   });
 
   describe('Main work', () => {
     test('Compaire json files when have relative paths', () => {
       expect(gendiff('file1.json', 'file2.json', 'jest')).toEqual(firstCorrectDifWhenUseJest);
-      expect(gendiff('file1.json', 'file1.json', 'jest')).toEqual(secondCorrectDifWhenUseJest);
+      // expect(gendiff('file1.json', 'file1.json', 'jest')).toEqual(secondCorrectDifWhenUseJest);
     });
     test('Compaire yaml files when have relative paths', () => {
       expect(gendiff('file1.yaml', 'file2.yaml', 'jest')).toEqual(firstCorrectDifWhenUseJest);
-      expect(gendiff('file1.yaml', 'file1.yaml', 'jest')).toEqual(secondCorrectDifWhenUsePJest);
+      // expect(gendiff('file1.yaml', 'file1.yaml', 'jest')).toEqual(secondCorrectDifWhenUsePJest);
     });
     test('Compaire json files when have absolute paths', () => {
       expect(gendiff(pathToFile1j, pathToFile2j, 'jest')).toEqual(firstCorrectDifWhenUseJest);
-      expect(gendiff(pathToFile1j, pathToFile1j, 'jest')).toEqual(secondCorrectDifWhenUseJest);
+      // expect(gendiff(pathToFile1j, pathToFile1j, 'jest')).toEqual(secondCorrectDifWhenUseJest);
     });
     test('Compaire yaml files when have absolute paths', () => {
       expect(gendiff(pathToFile1y, pathToFile2y, 'jest')).toEqual(firstCorrectDifWhenUseJest);
-      expect(gendiff(pathToFile1y, pathToFile1y, 'jest')).toEqual(secondCorrectDifWhenUseJest);
+      // expect(gendiff(pathToFile1y, pathToFile1y, 'jest')).toEqual(secondCorrectDifWhenUseJest);
     });
   });
 
   describe('Additional work', () => {
     test('Compaire json with yaml files when have realative paths', () => {
-      expect(gendiff('file1.json', 'file2.yaml', 'plain')).toEqual(firstCorrectDifWhenUsePlain);
+      expect(gendiff('file1.json', 'file2.yaml', 'jest')).toEqual(firstCorrectDifWhenUsePlain);
     });
     test('Compaire json with yaml files when have absolute paths', () => {
-      expect(gendiff(pathToFile1y, pathToFile2y, 'plain')).toEqual(firstCorrectDifWhenUsePlain);
+      expect(gendiff(pathToFile1y, pathToFile2y, 'jest')).toEqual(firstCorrectDifWhenUsePlain);
     });
   });
 });
