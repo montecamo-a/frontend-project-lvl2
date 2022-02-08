@@ -1,13 +1,7 @@
 import _ from 'lodash';
-import { readFileSync } from 'fs';
-import * as path from 'path';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-import yaml from 'js-yaml';
 import {
-  diff, getChildrensOfNodeAsArray,
-  getFirstChildOfChildrens, getRemovedChildAsArrayOfUpdatedNode,
-  getAddedChildAsArrayOfUpdatedNode, getRemovedChildOfUpdatedNode,
+  getChildrensOfNodeAsArray,
+  getFirstChildOfChildrens, getRemovedChildOfUpdatedNode,
   getAddedChildOfUpdatedNode,
 } from '../src/diff.js';
 
@@ -24,9 +18,9 @@ const plain = (diffAsTree) => {
           let removedChildOfUpdatedNode = getRemovedChildOfUpdatedNode(childrens);
           let addedChildOfUpdatedNode = getAddedChildOfUpdatedNode(childrens);
           if (_.isString(removedChildOfUpdatedNode)) removedChildOfUpdatedNode = `'${removedChildOfUpdatedNode}'`;
+          if (_.isString(addedChildOfUpdatedNode)) addedChildOfUpdatedNode = `'${addedChildOfUpdatedNode}'`;
           if (_.isObject(removedChildOfUpdatedNode)) removedChildOfUpdatedNode = '[complex value]';
           if (_.isObject(addedChildOfUpdatedNode)) addedChildOfUpdatedNode = '[complex value]';
-          if (_.isString(addedChildOfUpdatedNode)) addedChildOfUpdatedNode = `'${addedChildOfUpdatedNode}'`;
           return `Property '${newPath}' was updated. From ${removedChildOfUpdatedNode} to ${addedChildOfUpdatedNode}\n`;
         }
 
@@ -45,26 +39,7 @@ const plain = (diffAsTree) => {
 
     return arrayOfStrings;
   };
-  const childrens = getChildrensOfNodeAsArray(diffAsTree);
-  const strings = formatter(childrens);
-  const result = strings.join('');
-  return result;
+  return formatter(getChildrensOfNodeAsArray(diffAsTree)).join('');
 };
 
 export default plain;
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const parser = (fileName) => {
-  const format = path.extname(fileName);
-  const roadToFile = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', fileName);
-  const valueOfFile = readFileSync(roadToFile, 'utf8');
-  const result = format === 'JSON' ? JSON.parse(valueOfFile) : yaml.load(valueOfFile);
-  return result;
-};
-
-const example = diff(parser('file1.json'), parser('file2.json'));
-plain(example);
-//console.log(JSON.stringify(example, null, 4));
-console.log(plain(example));
