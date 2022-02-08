@@ -53,11 +53,16 @@ const getFirstChildOfChildrens = (array) => array[0];
 
 const getRemovedChildAsArrayOfUpdatedNode = (array) => [array[0]];
 
+const getRemovedChildOfUpdatedNode = (array) => array[0];
+
+const getAddedChildOfUpdatedNode = (array) => array[1];
+
 const getAddedChildAsArrayOfUpdatedNode = (array) => [array[1]];
 
 export {
   diff, getStatusOfNode,
   getKeyOfNode, getChildrensOfNodeAsArray,
   getFirstChildOfChildrens, getRemovedChildAsArrayOfUpdatedNode,
-  getAddedChildAsArrayOfUpdatedNode,
+  getAddedChildAsArrayOfUpdatedNode, getRemovedChildOfUpdatedNode,
+  getAddedChildOfUpdatedNode,
 };
