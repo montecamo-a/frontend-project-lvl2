@@ -1,28 +1,13 @@
-import _ from 'lodash';
+import getFormatter from '../formatters/index.js';
 import parser from './parser.js';
+import { diff } from './diff.js';
 
-const gendiff = (file1, file2) => {
-  const [obj1, obj2] = [parser(file1), parser(file2)];
-  const keysOfObj1 = Object.keys(obj1);
-  const keysOfObj2 = Object.keys(obj2);
-  const allKeys = _.uniq([...keysOfObj1, ...keysOfObj2]).sort();
-
-  const diffAsArray = allKeys.reduce((acc, key) => {
-    if (_.has(obj2, key) && _.has(obj1, key)) {
-      if (obj2[key] === obj1[key]) acc.push([`  ${key}`, obj1[key]]);
-      if (obj2[key] !== obj1[key]) {
-        acc.push([`- ${key}`, obj1[key]]);
-        acc.push([`+ ${key}`, obj2[key]]);
-      }
-    } else {
-      if (_.has(obj1, key)) acc.push([`- ${key}`, obj1[key]]);
-      if (_.has(obj2, key)) acc.push([`+ ${key}`, obj2[key]]);
-    }
-    return acc;
-  }, []);
-
-  const diffAsString = diffAsArray.reduce((acc, [key, value]) => `${acc}${key}: ${value}\n  `, '');
-  return `{\n  ${_.trimEnd(diffAsString)}\n}`;
+const gendiff = (filepath1, filepath2, formatName = 'stylish') => {
+  const parsedValueOfTheFirstFile = parser(filepath1);
+  const parsedValueOfTheSecondFile = parser(filepath2);
+  const treeOfDiff = diff(parsedValueOfTheFirstFile, parsedValueOfTheSecondFile);
+  const formatter = getFormatter(formatName);
+  return formatter(treeOfDiff);
 };
 
 export default gendiff;
