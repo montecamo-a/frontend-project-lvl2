@@ -3,29 +3,16 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import gendiff from '../src/gendiff.js';
 
-let __filename;
-let __dirname;
-let firstCorrectDiff;
-let secondCorrectDiff;
-let thirdCorrectDiff;
-let pathToFile1j;
-let pathToFile2j;
-let pathToFile3j;
-let pathToFile1y;
-let pathToFile2y;
-let pathToFile3y;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const pathToFile1j = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file1.json');
+const pathToFile2j = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file2.json');
+const pathToFile3j = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file3.json');
+const pathToFile1y = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file1.yaml');
+const pathToFile2y = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file2.yaml');
+const pathToFile3y = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file3.yaml');
 
-beforeEach(() => {
-  __filename = fileURLToPath(import.meta.url);
-  __dirname = dirname(__filename);
-  pathToFile1j = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file1.json');
-  pathToFile2j = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file2.json');
-  pathToFile3j = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file3.json');
-  pathToFile1y = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file1.yaml');
-  pathToFile2y = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file2.yaml');
-  pathToFile3y = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file3.yaml');
-
-  firstCorrectDiff = "Property 'common.follow' was added with value: false\n"
+const firstCorrectDiff = "Property 'common.follow' was added with value: false\n"
                                   + "Property 'common.setting2' was removed\n"
                                   + "Property 'common.setting3' was updated. From true to null\n"
                                   + "Property 'common.setting4' was added with value: 'blah blah'\n"
@@ -37,12 +24,11 @@ beforeEach(() => {
                                   + "Property 'group2' was removed\n"
                                   + "Property 'group3' was added with value: [complex value]";
 
-  secondCorrectDiff = '';
+const secondCorrectDiff = '';
 
-  thirdCorrectDiff = "Property 'common' was removed\n"
+const thirdCorrectDiff = "Property 'common' was removed\n"
                    + "Property 'group1' was removed\n"
                    + "Property 'group2' was removed";
-});
 
 describe('Main work', () => {
   test('Compaire json files when have relative paths', () => {

@@ -3,29 +3,16 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import gendiff from '../src/gendiff.js';
 
-let __filename;
-let __dirname;
-let firstCorrectDiff;
-let secondCorrectDiff;
-let thirdCorrectDiff;
-let fourthCorrectDiff;
-let pathToFile1j;
-let pathToFile2j;
-let pathToFile3j;
-let pathToFile1y;
-let pathToFile2y;
-let pathToFile3y;
-beforeEach(() => {
-  __filename = fileURLToPath(import.meta.url);
-  __dirname = dirname(__filename);
-  pathToFile1j = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file1.json');
-  pathToFile2j = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file2.json');
-  pathToFile3j = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file3.json');
-  pathToFile1y = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file1.yaml');
-  pathToFile2y = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file2.yaml');
-  pathToFile3y = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file3.yaml');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const pathToFile1j = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file1.json');
+const pathToFile2j = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file2.json');
+const pathToFile3j = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file3.json');
+const pathToFile1y = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file1.yaml');
+const pathToFile2y = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file2.yaml');
+const pathToFile3y = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file3.yaml');
 
-  firstCorrectDiff = '{\n'
+const firstCorrectDiff = '{\n'
                                   + '    common: {\n'
                                   + '      + follow: false\n'
                                   + '        setting1: Value 1\n'
@@ -70,7 +57,7 @@ beforeEach(() => {
                                   + '    }\n'
                                   + '}';
 
-  secondCorrectDiff = '{\n'
+const secondCorrectDiff = '{\n'
                                    + '    common: {\n'
                                    + '        setting1: Value 1\n'
                                    + '        setting2: 200\n'
@@ -97,7 +84,7 @@ beforeEach(() => {
                                    + '    }\n'
                                    + '}';
 
-  thirdCorrectDiff = '{\n'
+const thirdCorrectDiff = '{\n'
                                    + '  - common: {\n'
                                    + '        setting1: Value 1\n'
                                    + '        setting2: 200\n'
@@ -123,9 +110,8 @@ beforeEach(() => {
                                    + '        }\n'
                                    + '    }\n'
                                    + '}';
-  fourthCorrectDiff = '{\n'
+const fourthCorrectDiff = '{\n'
                     + '}';
-});
 
 describe('Main work', () => {
   test('Compaire json files when have relative paths', () => {
