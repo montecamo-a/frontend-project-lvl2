@@ -1,4 +1,4 @@
 import _ from 'lodash';
 
-const json = (diffAsTree) => _.cloneDeep(diffAsTree);
+const json = (diffAsTree) => JSON.stringify(_.cloneDeep(diffAsTree));
 export default json;
