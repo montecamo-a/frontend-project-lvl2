@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import _ from 'lodash';
 import {
   getChildrensOfNodeAsArray,
@@ -6,40 +7,39 @@ import {
 } from '../src/diff.js';
 
 const plain = (diffAsTree) => {
-  const formatter = (array, paths = '') => {
+  const valueFormatter = (value) => {
+    if (_.isString(value)) return `'${value}'`;
+    if (_.isObject(value)) return '[complex value]';
+    return value;
+  };
+
+  const arrayFormatter = (array, paths = '') => {
     const child = getFirstChildOfChildrens(array);
     if (!_.isObject(child)) return [];
 
     const arrayOfStrings = array
       .flatMap(({ name, status, childrens }) => {
         const newPath = paths.length === 0 ? name : `${paths}.${name}`;
+        switch (status) {
+          case 'updated':
+            return `Property '${newPath}' was updated. From`
+                  + ` ${valueFormatter(getRemovedChildOfUpdatedNode(childrens))} to`
+                  + ` ${valueFormatter(getAddedChildOfUpdatedNode(childrens))}\n`;
 
-        if (status === 'updated') {
-          let removedChildOfUpdatedNode = getRemovedChildOfUpdatedNode(childrens);
-          let addedChildOfUpdatedNode = getAddedChildOfUpdatedNode(childrens);
-          if (_.isString(removedChildOfUpdatedNode)) removedChildOfUpdatedNode = `'${removedChildOfUpdatedNode}'`;
-          if (_.isString(addedChildOfUpdatedNode)) addedChildOfUpdatedNode = `'${addedChildOfUpdatedNode}'`;
-          if (_.isObject(removedChildOfUpdatedNode)) removedChildOfUpdatedNode = '[complex value]';
-          if (_.isObject(addedChildOfUpdatedNode)) addedChildOfUpdatedNode = '[complex value]';
-          return `Property '${newPath}' was updated. From ${removedChildOfUpdatedNode} to ${addedChildOfUpdatedNode}\n`;
-        }
+          case 'added':
+            return `Property '${newPath}' was added with value: ${valueFormatter(getFirstChildOfChildrens(childrens))}\n`;
 
-        if (status === 'added') {
-          let addedChild = getFirstChildOfChildrens(childrens);
-          if (_.isString(addedChild)) addedChild = `'${addedChild}'`;
-          if (_.isObject(addedChild)) addedChild = '[complex value]';
-          return `Property '${newPath}' was added with value: ${addedChild}\n`;
-        }
+          case 'removed':
+            return `Property '${newPath}' was removed\n`;
 
-        if (status === 'removed') {
-          return `Property '${newPath}' was removed\n`;
+          default:
+            return arrayFormatter(childrens, newPath);
         }
-        return formatter(childrens, newPath);
       });
 
     return arrayOfStrings;
   };
-  return formatter(getChildrensOfNodeAsArray(diffAsTree)).join('');
+  return arrayFormatter(getChildrensOfNodeAsArray(diffAsTree)).join('');
 };
 
 export default plain;

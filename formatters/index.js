@@ -3,10 +3,13 @@ import plain from './plain.js';
 import json from './json.js';
 
 const getFormatter = (nameOfFormatter) => {
-  let formatter;
-  if (nameOfFormatter === 'plain') formatter = plain;
-  if (nameOfFormatter === 'stylish') formatter = stylish;
-  if (nameOfFormatter === 'json') formatter = json;
-  return formatter;
+  switch (nameOfFormatter) {
+    case 'plain':
+      return plain;
+    case 'json':
+      return json;
+    default:
+      return stylish;
+  }
 };
 export default getFormatter;

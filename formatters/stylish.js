@@ -1,3 +1,5 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable consistent-return */
 import _ from 'lodash';
 import {
   getChildrensOfNodeAsArray,
@@ -11,30 +13,44 @@ const stylish = (diffAsTree, replacer = ' ', repeatingSeparator = 4) => {
     if (!_.isObject(child)) return `${child}`;
 
     const newRepeatingSeparator = repeatingSeparator * depth;
-    const arrayOfStrings = array
-      .map(({ name, status, childrens }) => {
-        let additionalSeparator;
-        if (status === 'updated') {
-          const removedChildOfUpdatedNode = getRemovedChildAsArrayOfUpdatedNode(childrens);
-          const addedChildOfUpdatedNode = getAddedChildAsArrayOfUpdatedNode(childrens);
 
-          return `\n${replacer.repeat(newRepeatingSeparator - 2)}- ${name}: ${formatter(removedChildOfUpdatedNode, depth + 1)}`
-          + `\n${replacer.repeat(newRepeatingSeparator - 2)}+ ${name}: ${formatter(addedChildOfUpdatedNode, depth + 1)}`;
-        }
-        if (status === 'added') additionalSeparator = '+ ';
-        if (status === 'removed') additionalSeparator = '- ';
-        if (status === 'unchanged') additionalSeparator = '  ';
-        return `\n${replacer.repeat(newRepeatingSeparator - 2)}${additionalSeparator}${name}: ${formatter(childrens, depth + 1)}`;
-      });
+    const arrayOfStrings = array.map(({ name, status, childrens }) => {
+      switch (status) {
+        case 'updated':
+          return `\n${replacer.repeat(newRepeatingSeparator - 2)}- ${name}: ${formatter(getRemovedChildAsArrayOfUpdatedNode(childrens), depth + 1)}`
+          + `\n${replacer.repeat(newRepeatingSeparator - 2)}+ ${name}: ${formatter(getAddedChildAsArrayOfUpdatedNode(childrens), depth + 1)}`;
+
+        case 'added':
+          return `\n${replacer.repeat(newRepeatingSeparator - 2)}+ ${name}: ${formatter(childrens, depth + 1)}`;
+
+        case 'removed':
+          return `\n${replacer.repeat(newRepeatingSeparator - 2)}- ${name}: ${formatter(childrens, depth + 1)}`;
+
+        case 'unchanged':
+          return `\n${replacer.repeat(newRepeatingSeparator - 2)}  ${name}: ${formatter(childrens, depth + 1)}`;
+
+        default:
+          break;
+      }
+    });
 
     const getresult = arrayOfStrings.reduce((acc, str, index, array1) => {
-      if (index === (array1.length - 1)) return `${acc}${str}\n${replacer.repeat(newRepeatingSeparator - repeatingSeparator)}}`;
-      return acc + str;
+      switch (index) {
+        case array1.length - 1:
+          return `${acc}${str}\n${replacer.repeat(newRepeatingSeparator - repeatingSeparator)}}`;
+        default:
+          return acc + str;
+      }
     }, '{');
+
     return getresult;
   };
   const childrens = getChildrensOfNodeAsArray(diffAsTree);
-  if (childrens.length === 0) return '{\n}';
-  return formatter(childrens);
+  switch (childrens.length) {
+    case 0:
+      return '{\n}';
+    default:
+      return formatter(childrens);
+  }
 };
 export default stylish;
