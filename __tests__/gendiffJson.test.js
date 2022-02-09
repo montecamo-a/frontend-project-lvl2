@@ -383,42 +383,42 @@ beforeEach(() => {
 
 describe('Main work', () => {
   test('Compaire json files when have relative paths', () => {
-    expect(gendiff('file1.json', 'file2.json', 'json')).toEqual(firstCorrectDiff);
-    expect(gendiff('file1.json', 'file1.json', 'json')).toEqual(secondCorrectDiff);
-    expect(gendiff('file1.json', 'file3.json', 'json')).toEqual(thirdCorrectDiff);
-    expect(gendiff('file3.json', 'file3.json', 'json')).toEqual(fourthCorrectDiff);
+    expect(gendiff('file1.json', 'file2.json', 'json')).toEqual(JSON.stringify(firstCorrectDiff));
+    expect(gendiff('file1.json', 'file1.json', 'json')).toEqual(JSON.stringify(secondCorrectDiff));
+    expect(gendiff('file1.json', 'file3.json', 'json')).toEqual(JSON.stringify(thirdCorrectDiff));
+    expect(gendiff('file3.json', 'file3.json', 'json')).toEqual(JSON.stringify(fourthCorrectDiff));
   });
   test('Compaire yaml files when have relative paths', () => {
-    expect(gendiff('file1.yaml', 'file2.yaml', 'json')).toEqual(firstCorrectDiff);
-    expect(gendiff('file1.yaml', 'file1.yaml', 'json')).toEqual(secondCorrectDiff);
-    expect(gendiff('file1.yaml', 'file3.yaml', 'json')).toEqual(thirdCorrectDiff);
-    expect(gendiff('file3.yaml', 'file3.yaml', 'json')).toEqual(fourthCorrectDiff);
+    expect(gendiff('file1.yaml', 'file2.yaml', 'json')).toEqual(JSON.stringify(firstCorrectDiff));
+    expect(gendiff('file1.yaml', 'file1.yaml', 'json')).toEqual(JSON.stringify(secondCorrectDiff));
+    expect(gendiff('file1.yaml', 'file3.yaml', 'json')).toEqual(JSON.stringify(thirdCorrectDiff));
+    expect(gendiff('file3.yaml', 'file3.yaml', 'json')).toEqual(JSON.stringify(fourthCorrectDiff));
   });
   test('Compaire json files when have absolute paths', () => {
-    expect(gendiff(pathToFile1j, pathToFile2j, 'json')).toEqual(firstCorrectDiff);
-    expect(gendiff(pathToFile1j, pathToFile1j, 'json')).toEqual(secondCorrectDiff);
-    expect(gendiff(pathToFile1j, pathToFile3j, 'json')).toEqual(thirdCorrectDiff);
-    expect(gendiff(pathToFile3j, pathToFile3j, 'json')).toEqual(fourthCorrectDiff);
+    expect(gendiff(pathToFile1j, pathToFile2j, 'json')).toEqual(JSON.stringify(firstCorrectDiff));
+    expect(gendiff(pathToFile1j, pathToFile1j, 'json')).toEqual(JSON.stringify(secondCorrectDiff));
+    expect(gendiff(pathToFile1j, pathToFile3j, 'json')).toEqual(JSON.stringify(thirdCorrectDiff));
+    expect(gendiff(pathToFile3j, pathToFile3j, 'json')).toEqual(JSON.stringify(fourthCorrectDiff));
   });
   test('Compaire yaml files when have absolute paths', () => {
-    expect(gendiff(pathToFile1y, pathToFile2y, 'json')).toEqual(firstCorrectDiff);
-    expect(gendiff(pathToFile1y, pathToFile1y, 'json')).toEqual(secondCorrectDiff);
-    expect(gendiff(pathToFile1y, pathToFile3y, 'json')).toEqual(thirdCorrectDiff);
-    expect(gendiff(pathToFile3y, pathToFile3y, 'json')).toEqual(fourthCorrectDiff);
+    expect(gendiff(pathToFile1y, pathToFile2y, 'json')).toEqual(JSON.stringify(firstCorrectDiff));
+    expect(gendiff(pathToFile1y, pathToFile1y, 'json')).toEqual(JSON.stringify(secondCorrectDiff));
+    expect(gendiff(pathToFile1y, pathToFile3y, 'json')).toEqual(JSON.stringify(thirdCorrectDiff));
+    expect(gendiff(pathToFile3y, pathToFile3y, 'json')).toEqual(JSON.stringify(fourthCorrectDiff));
   });
 });
 
 describe('Additional work', () => {
   test('Compaire json with yaml files when have realative paths', () => {
-    expect(gendiff('file1.json', 'file2.yaml', 'json')).toEqual(firstCorrectDiff);
-    expect(gendiff('file1.json', 'file1.yaml', 'json')).toEqual(secondCorrectDiff);
-    expect(gendiff('file1.json', 'file3.yaml', 'json')).toEqual(thirdCorrectDiff);
-    expect(gendiff('file3.json', 'file3.yaml', 'json')).toEqual(fourthCorrectDiff);
+    expect(gendiff('file1.json', 'file2.yaml', 'json')).toEqual(JSON.stringify(firstCorrectDiff));
+    expect(gendiff('file1.json', 'file1.yaml', 'json')).toEqual(JSON.stringify(secondCorrectDiff));
+    expect(gendiff('file1.json', 'file3.yaml', 'json')).toEqual(JSON.stringify(thirdCorrectDiff));
+    expect(gendiff('file3.json', 'file3.yaml', 'json')).toEqual(JSON.stringify(fourthCorrectDiff));
   });
   test('Compaire json with yaml files when have absolute paths', () => {
-    expect(gendiff(pathToFile1j, pathToFile2y, 'json')).toEqual(firstCorrectDiff);
-    expect(gendiff(pathToFile1j, pathToFile1y, 'json')).toEqual(secondCorrectDiff);
-    expect(gendiff(pathToFile1j, pathToFile3y, 'json')).toEqual(thirdCorrectDiff);
-    expect(gendiff(pathToFile3j, pathToFile3y, 'json')).toEqual(fourthCorrectDiff);
+    expect(gendiff(pathToFile1j, pathToFile2y, 'json')).toEqual(JSON.stringify(firstCorrectDiff));
+    expect(gendiff(pathToFile1j, pathToFile1y, 'json')).toEqual(JSON.stringify(secondCorrectDiff));
+    expect(gendiff(pathToFile1j, pathToFile3y, 'json')).toEqual(JSON.stringify(thirdCorrectDiff));
+    expect(gendiff(pathToFile3j, pathToFile3y, 'json')).toEqual(JSON.stringify(fourthCorrectDiff));
   });
 });
