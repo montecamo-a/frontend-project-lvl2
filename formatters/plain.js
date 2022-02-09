@@ -43,7 +43,7 @@ const plain = (diffAsTree) => {
     case 0:
       return '';
     default:
-      return arrayFormatter(getChildrensOfNodeAsArray(diffAsTree)).join('');
+      return arrayFormatter(getChildrensOfNodeAsArray(diffAsTree)).join('').trim();
   }
 };
 

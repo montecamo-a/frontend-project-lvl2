@@ -35,13 +35,13 @@ beforeEach(() => {
                                   + "Property 'group1.baz' was updated. From 'bas' to 'bars'\n"
                                   + "Property 'group1.nest' was updated. From [complex value] to 'str'\n"
                                   + "Property 'group2' was removed\n"
-                                  + "Property 'group3' was added with value: [complex value]\n";
+                                  + "Property 'group3' was added with value: [complex value]";
 
   secondCorrectDiff = '';
 
   thirdCorrectDiff = "Property 'common' was removed\n"
                    + "Property 'group1' was removed\n"
-                   + "Property 'group2' was removed\n";
+                   + "Property 'group2' was removed";
 });
 
 describe('Main work', () => {
