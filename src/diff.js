@@ -15,7 +15,7 @@ const diff = (valueOfFirstFile, valueOfSecondFile) => {
 
     const keysOfNodeOfFirstFile = Object.keys(nodeOfFirstFile);
     const keysOfNodeOfSecondFile = Object.keys(nodeOfSecondFile);
-    const allKeys = _.uniq([...keysOfNodeOfFirstFile, ...keysOfNodeOfSecondFile]).slice().sort();
+    const allKeys = _.sortBy(_.uniq([...keysOfNodeOfFirstFile, ...keysOfNodeOfSecondFile]));
 
     const partOfTree = allKeys.map((key) => {
       if (_.has(nodeOfFirstFile, key) && _.has(nodeOfSecondFile, key)) {
