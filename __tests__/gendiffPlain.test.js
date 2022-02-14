@@ -13,22 +13,22 @@ const pathToFile2y = path.resolve(__dirname, '..', '__fixtures__/recursionVolume
 const pathToFile3y = path.resolve(__dirname, '..', '__fixtures__/recursionVolumes', 'file3.yaml');
 
 const firstCorrectDiff = "Property 'common.follow' was added with value: false\n"
-                                  + "Property 'common.setting2' was removed\n"
-                                  + "Property 'common.setting3' was updated. From true to null\n"
-                                  + "Property 'common.setting4' was added with value: 'blah blah'\n"
-                                  + "Property 'common.setting5' was added with value: [complex value]\n"
-                                  + "Property 'common.setting6.doge.wow' was updated. From '' to 'so much'\n"
-                                  + "Property 'common.setting6.ops' was added with value: 'vops'\n"
-                                  + "Property 'group1.baz' was updated. From 'bas' to 'bars'\n"
-                                  + "Property 'group1.nest' was updated. From [complex value] to 'str'\n"
-                                  + "Property 'group2' was removed\n"
-                                  + "Property 'group3' was added with value: [complex value]";
+                       + "Property 'common.setting2' was removed\n"
+                       + "Property 'common.setting3' was updated. From true to null\n"
+                       + "Property 'common.setting4' was added with value: 'blah blah'\n"
+                       + "Property 'common.setting5' was added with value: [complex value]\n"
+                       + "Property 'common.setting6.doge.wow' was updated. From '' to 'so much'\n"
+                       + "Property 'common.setting6.ops' was added with value: 'vops'\n"
+                       + "Property 'group1.baz' was updated. From 'bas' to 'bars'\n"
+                       + "Property 'group1.nest' was updated. From [complex value] to 'str'\n"
+                       + "Property 'group2' was removed\n"
+                       + "Property 'group3' was added with value: [complex value]";
 
 const secondCorrectDiff = '';
 
 const thirdCorrectDiff = "Property 'common' was removed\n"
-                   + "Property 'group1' was removed\n"
-                   + "Property 'group2' was removed";
+                       + "Property 'group1' was removed\n"
+                       + "Property 'group2' was removed";
 
 describe('Main work', () => {
   test('Compaire json files when have relative paths', () => {
