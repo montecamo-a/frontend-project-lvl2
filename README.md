@@ -1,3 +1,26 @@
+Целью данного проекта является создание утилиты, которая сравнивает два конфигурационных файла (формат файлов - json/yaml).
+
+Утилита принимает через командную строку два аргумента - абсолютные/относительные пути до этих файлов. Результат работы утилиты - разница между двумя файлами.
+
+Форматирование разницы и вычисление разницы отделены.
+Вычисленная разница между исходными структурами имеет внутреннее представление - дерево и описывает каждый ключ. Далее форматер работает уже с вычисленной разницей. В ходе выполнения проекта
+
+созданы три форматера:
+- рекурсивное сравнение - третья и шестая аскинема
+  {Вывод разницы в виде дерева, где отсутствие плюса или минуса говорит, что ключ есть в обоих файлах, и его значения совпадают.
+   Во всех остальных ситуациях значение по ключу либо отличается, либо ключ есть только в одном файле.}
+
+- плоский формат - седьмая аскинема
+  {Вывод разницы в виде текста, отражающего ситуацию, словно первый файл объединили со вторым.}
+
+- вывод в json.
+ 
+По заданию, в проекте должны отсутствовать:
+
+- переменные и цыклы;
+
+- классы.
+
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/k1ntsugi1/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/k1ntsugi1/frontend-project-lvl2/actions)
 ### My tests and linter status:
@@ -15,4 +38,4 @@
 ### Seventh step asciinema:
 <a href="https://asciinema.org/a/jRMRddhhS5lig7acLXockO4b5" target="_blank"><img src="https://asciinema.org/a/jRMRddhhS5lig7acLXockO4b5.svg" /></a>
 ### Eight step asciinema:
-<a href="https://asciinema.org/a/iBZRDg5Blb5K45X5s9hZrHfdB" target="_blank"><img src="https://asciinema.org/a/iBZRDg5Blb5K45X5s9hZrHfdB.svg" /></a>
+<a href="https://asciinema.org/a/JrUsEWG8C52OveDH0Vj2ksYVu" target="_blank"><img src="https://asciinema.org/a/JrUsEWG8C52OveDH0Vj2ksYVu.svg" /></a>
