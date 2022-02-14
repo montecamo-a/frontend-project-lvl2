@@ -16,4 +16,3 @@ const parser = (fileName) => {
 };
 
 export default parser;
-// /home/kintsugi/frontend-project-lvl2/__fixtures__/recursionVolumes/
