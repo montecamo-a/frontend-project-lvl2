@@ -1,0 +1,22 @@
+name: check 
+
+on:
+  push:
+    branches:
+      - '**'
+    tags:
+      - '**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: install
+        run: npm ci
+
+      - name: eslint
+        run: make lint
+      - name: test
+        run: make test

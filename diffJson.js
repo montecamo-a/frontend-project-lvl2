@@ -1,6 +1,4 @@
-import { uniq } from "lodash-es";
-
-const print = (key, value) => `${key}: ${value}`;
+import { uniq } from 'lodash-es';
 
 export default (json1, json2) => {
   const diffs = uniq([...Object.keys(json1), ...Object.keys(json2)])
@@ -23,7 +21,7 @@ export default (json1, json2) => {
 
   return `
 {
-  ${diffs.join("\n  ")}
+  ${diffs.join('\n  ')}
 }
-  `;
+`;
 };
