@@ -1,6 +1,10 @@
+import fs from 'fs';
+import path from 'path';
+import yaml from 'js-yaml';
+
 import { uniq } from 'lodash-es';
 
-export default (json1, json2) => {
+const diffJSON = (json1, json2) => {
   const diffs = uniq([...Object.keys(json1), ...Object.keys(json2)])
     .sort()
     .flatMap((key) => {
@@ -25,3 +29,19 @@ export default (json1, json2) => {
 }
 `;
 };
+
+const makeParser = (src) => {
+  const ext = path.extname(src);
+
+  if (['.yaml', '.yml'].includes(ext)) {
+    return yaml.load;
+  }
+
+  return JSON.parse;
+};
+
+export default (file1, file2) =>
+  diffJSON(
+    makeParser(file1)(fs.readFileSync(file1)),
+    makeParser(file2)(fs.readFileSync(file2))
+  );
