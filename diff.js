@@ -2,33 +2,35 @@ import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
 
-import { uniq } from 'lodash-es';
+import { uniq, isObject } from 'lodash-es';
 
-const diffJSON = (json1, json2) => {
-  const diffs = uniq([...Object.keys(json1), ...Object.keys(json2)])
+const diff = (json1, json2) =>
+  uniq([...Object.keys(json1), ...Object.keys(json2)])
     .sort()
-    .flatMap((key) => {
+    .map((key) => {
+      if (isObject(json1[key]) && isObject(json2[key])) {
+        return { type: 'EQUAL', key, value: diff(json1[key], json2[key]) };
+      }
+
       if (json1[key] === json2[key]) {
-        return `  ${key}: ${json1[key]}`;
+        return { type: 'EQUAL', key, value: json1[key] };
       }
 
       if (key in json1 && key in json2) {
-        return [`- ${key}: ${json1[key]}`, `+ ${key}: ${json2[key]}`];
+        return {
+          type: 'UPDATE',
+          key,
+          prevValue: json1[key],
+          value: json2[key],
+        };
       }
 
       if (key in json1) {
-        return `- ${key}: ${json1[key]}`;
+        return { type: 'MISSING', key, value: json1[key] };
       }
 
-      return `+ ${key}: ${json2[key]}`;
+      return { type: 'EXTRA', key, value: json2[key] };
     });
-
-  return `
-{
-  ${diffs.join('\n  ')}
-}
-`;
-};
 
 const makeParser = (src) => {
   const ext = path.extname(src);
@@ -41,7 +43,7 @@ const makeParser = (src) => {
 };
 
 export default (file1, file2) =>
-  diffJSON(
+  diff(
     makeParser(file1)(fs.readFileSync(file1)),
     makeParser(file2)(fs.readFileSync(file2))
   );
